@@ -2,7 +2,7 @@
 
 const http = require('http');
 
-exports.handler = function(event,context) {
+exports.handler = function(event,context,callback) {
   var endpoint = "foo.bar.com";  // Elasticsearch endpoint
   var indices_regex = /logstash/;  // Regex for indices you wish to remove
   var retention_period = 10;  // The amount of indices you wish to retain
@@ -81,6 +81,7 @@ exports.handler = function(event,context) {
         });
         res.on('end',  function() {
           console.log("Successfully removed", value);
+          callback(null, 'success');
         });
       });
 

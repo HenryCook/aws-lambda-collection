@@ -2,7 +2,7 @@
 
 const http = require('http');
 
-exports.handler = function(event,context) {
+exports.handler = function(event,context,callback) {
   var endpoint = 'foo.bar.com';  // Elasticsearch endpoint
 
   var index_template = JSON.stringify({
@@ -88,6 +88,7 @@ exports.handler = function(event,context) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
         console.log('Response: ' + chunk);
+        callback(null, 'The index template has successfully been set');
     });
   });
 
